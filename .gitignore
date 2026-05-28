@@ -1,0 +1,24 @@
+node_modules/
+.next/
+dist/
+build/
+coverage/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+*.log
+
+# Local planning / agent-only files. Do not publish these in the deploy repo.
+AGENTS.md
+DESIGN.md
+START_HERE.md
+DEPLOY.md
+docs/
+content/
+
+# Source scratch copies. Public deploy target is site/.
+index.html
+styles.css
+app.js
