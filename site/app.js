@@ -409,6 +409,14 @@ const riskTerms = [
 let currentLang = "ko";
 let documentImageName = "";
 
+function trackEvent(name, params = {}) {
+  if (typeof window.gtag !== "function") return;
+  window.gtag("event", name, {
+    language: currentLang,
+    ...params,
+  });
+}
+
 function clampNumber(value, max) {
   if (!Number.isFinite(value)) return { value: max, clamped: true };
   if (value < 0) return { value: 0, clamped: true };
@@ -589,6 +597,9 @@ function previewDocumentImage(file) {
 
 function handleDocumentImage(event) {
   previewDocumentImage(event.target.files?.[0]);
+  if (event.target.files?.[0]) {
+    trackEvent("document_image_upload", { source: "file_input" });
+  }
 }
 
 function handleDocumentPaste(event) {
@@ -597,6 +608,7 @@ function handleDocumentPaste(event) {
   const file = imageItem.getAsFile();
   if (!file) return;
   previewDocumentImage(new File([file], `pasted-document-${Date.now()}.png`, { type: file.type }));
+  trackEvent("document_image_upload", { source: "paste" });
 }
 
 async function copyText(text, button) {
@@ -642,6 +654,7 @@ document.querySelectorAll(".lang-button").forEach((button) => {
     document.querySelectorAll(".lang-button").forEach((node) => node.classList.remove("active"));
     button.classList.add("active");
     updateI18n();
+    trackEvent("language_switch");
   });
 });
 
@@ -659,6 +672,7 @@ document.querySelector("#copy-living").addEventListener("click", (event) => {
     `${i18n[currentLang].reserve}: ${document.querySelector("#living-reserve").textContent}`,
   ].join("\n");
   copyText(text, event.currentTarget);
+  trackEvent("living_copy");
 });
 
 document.querySelector("#copy-movein").addEventListener("click", (event) => {
@@ -667,14 +681,17 @@ document.querySelector("#copy-movein").addEventListener("click", (event) => {
     .join("\n");
   const text = `${i18n[currentLang].upfront}: ${document.querySelector("#movein-total").textContent}\n${rows}`;
   copyText(text, event.currentTarget);
+  trackEvent("movein_copy");
 });
 
 document.querySelector("#copy-checklist").addEventListener("click", (event) => {
   copyText(`${i18n[currentLang].remainingTitle}\n${getRemainingChecklist()}`, event.currentTarget);
+  trackEvent("checklist_copy");
 });
 
 document.querySelector("#copy-prompt").addEventListener("click", (event) => {
   copyText(document.querySelector("#prompt-output").value, event.currentTarget);
+  trackEvent("document_prompt_copy");
 });
 
 updateI18n();
