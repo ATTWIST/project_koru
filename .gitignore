@@ -19,6 +19,6 @@ docs/
 content/
 
 # Source scratch copies. Public deploy target is site/.
-index.html
-styles.css
-app.js
+/index.html
+/styles.css
+/app.js

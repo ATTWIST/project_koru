@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>J-Life Kit</title>
+    <meta name="description" content="일본 생활비, 월세 초기비용, 체크리스트, 일본어 서류 검토를 빠르게 정리하는 도구">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="top-nav">
+      <a class="brand" href="#top" aria-label="J-Life Kit home">
+        <span class="brand-mark">J</span>
+        <span>J-Life Kit</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#tools">Tools</a>
+        <a href="#workflow">How it works</a>
+        <a href="#content">Use cases</a>
+        <a href="#privacy">Privacy</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="lang-switch" aria-label="Language">
+          <button class="lang-button active" data-lang="ko" type="button">KR</button>
+          <button class="lang-button" data-lang="ja" type="button">JP</button>
+          <button class="lang-button" data-lang="en" type="button">EN</button>
+        </div>
+        <a class="button-secondary nav-cta" href="#tool-card">도구 사용</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero-band" id="tools">
+        <div class="hero-copy">
+          <span class="badge-pill">Japan life tools · KR / JP / EN</span>
+          <h1>J-Life Kit</h1>
+          <p class="hero-lede">
+            일본 생활에서 막히는 비용, 집 계약, 행정 체크리스트, 일본어 서류를 빠르게 정리하는
+            외국인 거주자용 도구입니다.
+          </p>
+          <div class="hero-actions">
+            <a class="button-primary" href="#tool-card">도구 바로 쓰기</a>
+            <a class="button-secondary" href="#privacy">개인정보 처리</a>
+          </div>
+          <div class="hero-proof" aria-label="Product highlights">
+            <div>
+              <strong>Cost</strong>
+              <span>monthly and move-in estimates</span>
+            </div>
+            <div>
+              <strong>Docs</strong>
+              <span>contract risk prompts</span>
+            </div>
+            <div>
+              <strong>Local</strong>
+              <span>image preview stays in browser</span>
+            </div>
+          </div>
+        </div>
+
+        <section class="hero-app-mockup-card" id="tool-card" aria-label="J-Life Kit tools">
+          <div class="product-chrome">
+            <div class="window-dots" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="chrome-title">
+              <span>Japan life estimate</span>
+              <strong>Live</strong>
+            </div>
+          </div>
+
+          <nav class="tabs nav-pill-group" aria-label="Tools">
+            <button class="tab active" data-tab="living" type="button" data-i18n="tabLiving">생활비</button>
+            <button class="tab" data-tab="movein" type="button" data-i18n="tabMovein">초기비용</button>
+            <button class="tab" data-tab="checklist" type="button" data-i18n="tabChecklist">체크리스트</button>
+            <button class="tab" data-tab="document" type="button" data-i18n="tabDocument">서류검토</button>
+          </nav>
+
+          <section class="tool-panel active" id="living">
+            <div class="panel-copy">
+              <h2 data-i18n="livingTitle">일본 한 달 생활비</h2>
+              <p data-i18n="livingSub">월세와 고정비를 넣으면 월/연간 예산과 비상금을 계산합니다.</p>
+            </div>
+            <div class="grid two-col">
+              <form class="input-panel" id="living-form">
+                <label>
+                  <span data-i18n="rent">월세</span>
+                  <input type="number" name="rent" value="85000" min="0" step="1000">
+                </label>
+                <label>
+                  <span data-i18n="utilities">전기/가스/수도</span>
+                  <input type="number" name="utilities" value="18000" min="0" step="1000">
+                </label>
+                <label>
+                  <span data-i18n="food">식비</span>
+                  <input type="number" name="food" value="55000" min="0" step="1000">
+                </label>
+                <label>
+                  <span data-i18n="transport">교통</span>
+                  <input type="number" name="transport" value="12000" min="0" step="1000">
+                </label>
+                <label>
+                  <span data-i18n="insurance">보험/연금</span>
+                  <input type="number" name="insurance" value="28000" min="0" step="1000">
+                </label>
+                <label>
+                  <span data-i18n="phone">통신</span>
+                  <input type="number" name="phone" value="6000" min="0" step="1000">
+                </label>
+                <label>
+                  <span data-i18n="misc">기타</span>
+                  <input type="number" name="misc" value="30000" min="0" step="1000">
+                </label>
+                <label>
+                  <span data-i18n="buffer">버퍼 %</span>
+                  <input type="number" name="buffer" value="12" min="0" max="100" step="1">
+                </label>
+              </form>
+              <aside class="result-panel">
+                <div class="input-warning" id="living-warning" aria-live="polite"></div>
+                <div class="metric primary-metric">
+                  <span data-i18n="monthlyTotal">월 예상비용</span>
+                  <strong id="living-monthly">¥0</strong>
+                </div>
+                <div class="metric">
+                  <span data-i18n="yearlyTotal">연 예상비용</span>
+                  <strong id="living-yearly">¥0</strong>
+                </div>
+                <div class="metric">
+                  <span data-i18n="reserve">권장 비상금</span>
+                  <strong id="living-reserve">¥0</strong>
+                </div>
+                <button class="button-primary full-width" id="copy-living" type="button" data-i18n="copyResult">결과 복사</button>
+              </aside>
+            </div>
+          </section>
+
+          <section class="tool-panel" id="movein">
+            <div class="panel-copy">
+              <h2 data-i18n="moveinTitle">일본 월세 초기비용</h2>
+              <p data-i18n="moveinSub">시키킹, 레이킹, 중개수수료, 보증회사 비용을 한 번에 봅니다.</p>
+            </div>
+            <div class="grid two-col">
+              <form class="input-panel" id="movein-form">
+                <label>
+                  <span data-i18n="rent">월세</span>
+                  <input type="number" name="rent" value="85000" min="0" step="1000">
+                </label>
+                <label>
+                  <span data-i18n="deposit">시키킹 개월</span>
+                  <input type="number" name="depositMonths" value="1" min="0" step="0.5">
+                </label>
+                <label>
+                  <span data-i18n="keyMoney">레이킹 개월</span>
+                  <input type="number" name="keyMoneyMonths" value="1" min="0" step="0.5">
+                </label>
+                <label>
+                  <span data-i18n="agency">중개수수료 개월</span>
+                  <input type="number" name="agencyMonths" value="1.1" min="0" step="0.1">
+                </label>
+                <label>
+                  <span data-i18n="guarantee">보증회사 %</span>
+                  <input type="number" name="guaranteePercent" value="50" min="0" step="5">
+                </label>
+                <label>
+                  <span data-i18n="fire">화재보험</span>
+                  <input type="number" name="fireInsurance" value="20000" min="0" step="1000">
+                </label>
+                <label>
+                  <span data-i18n="lockClean">열쇠/청소</span>
+                  <input type="number" name="lockClean" value="35000" min="0" step="1000">
+                </label>
+                <label>
+                  <span data-i18n="moving">이사/가구</span>
+                  <input type="number" name="moving" value="120000" min="0" step="1000">
+                </label>
+              </form>
+              <aside class="result-panel">
+                <div class="input-warning" id="movein-warning" aria-live="polite"></div>
+                <div class="metric primary-metric">
+                  <span data-i18n="upfront">초기비용 합계</span>
+                  <strong id="movein-total">¥0</strong>
+                </div>
+                <div class="metric">
+                  <span data-i18n="rentEquivalent">월세 대비</span>
+                  <strong id="movein-months">0x</strong>
+                </div>
+                <div class="breakdown" id="movein-breakdown"></div>
+                <button class="button-primary full-width" id="copy-movein" type="button" data-i18n="copyResult">결과 복사</button>
+              </aside>
+            </div>
+          </section>
+
+          <section class="tool-panel" id="checklist">
+            <div class="panel-copy">
+              <h2 data-i18n="checkTitle">일본 생활 체크리스트</h2>
+              <p data-i18n="checkSub">입국, 집, 통신, 은행, 보험, 세금 순서로 막히는 일을 줄입니다.</p>
+            </div>
+            <div class="check-layout">
+              <div class="progress-box">
+                <span data-i18n="progress">진행률</span>
+                <strong id="check-progress">0%</strong>
+                <div class="progress-track"><div id="progress-fill"></div></div>
+                <button class="button-primary full-width" id="copy-checklist" type="button" data-i18n="copyRemaining">남은 일 복사</button>
+              </div>
+              <div class="checklist" id="checklist-items"></div>
+            </div>
+          </section>
+
+          <section class="tool-panel" id="document">
+            <div class="panel-copy">
+              <h2 data-i18n="docTitle">일본어 서류 리스크 체크</h2>
+              <p data-i18n="docSub">사진, 스크린샷, 메일 전문을 기준으로 AI에 넘길 검토 프롬프트를 만듭니다.</p>
+            </div>
+            <div class="grid two-col">
+              <div class="input-panel document-input-panel">
+                <label class="upload-card">
+                  <span data-i18n="uploadImage">사진/스크린샷 업로드</span>
+                  <input id="document-image" type="file" accept="image/*">
+                  <small data-i18n="uploadImageSub">이미지를 외부로 보내지 않고 미리보기와 OCR 프롬프트만 만듭니다.</small>
+                </label>
+                <div class="image-preview empty" id="image-preview">
+                  <span data-i18n="imagePlaceholder">업로드한 문서 이미지가 여기에 표시됩니다.</span>
+                </div>
+                <label class="wide-field">
+                  <span data-i18n="pasteJapanese">일본어 원문 / OCR 결과</span>
+                  <textarea id="document-input" rows="11" placeholder="契約期間、更新料、解約、違約金、原状回復..."></textarea>
+                </label>
+                <button class="button-primary full-width" id="scan-document" type="button" data-i18n="scan">검토하기</button>
+              </div>
+              <aside class="result-panel">
+                <div class="doc-result">
+                  <h3 data-i18n="foundTerms">발견된 표현</h3>
+                  <div id="risk-terms" class="chips"></div>
+                </div>
+                <div class="doc-result">
+                  <h3 data-i18n="reviewPrompt">복사용 프롬프트</h3>
+                  <textarea id="prompt-output" rows="8" readonly></textarea>
+                  <button class="button-secondary full-width" id="copy-prompt" type="button" data-i18n="copyPrompt">프롬프트 복사</button>
+                </div>
+              </aside>
+            </div>
+          </section>
+        </section>
+      </section>
+
+      <section class="section feature-band" aria-labelledby="feature-heading">
+        <div class="section-heading">
+          <span class="badge-pill">Practical first</span>
+          <h2 id="feature-heading">일본 생활에서 바로 막히는 문제만.</h2>
+          <p>월세, 초기비용, 행정 절차, 계약서 표현처럼 실제 행동 전에 확인해야 하는 것들을 먼저 정리합니다.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="mini-icon">¥</div>
+            <h3>돈부터 계산</h3>
+            <p>월세, 생활비, 초기비용을 분리해 사용자가 가장 먼저 궁금해하는 숫자를 바로 보여줍니다.</p>
+          </article>
+          <article class="feature-card">
+            <div class="mini-icon">契</div>
+            <h3>일본어 리스크 표시</h3>
+            <p>계약서와 안내문에서 먼저 확인할 단어를 찾고, 더 강한 AI에 붙일 검토 프롬프트를 생성합니다.</p>
+          </article>
+          <article class="feature-card">
+            <div class="mini-icon">✓</div>
+            <h3>행동 목록으로 마무리</h3>
+            <p>정보를 읽고 끝나는 대신 남은 할 일을 복사 가능한 체크리스트로 바꿉니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section workflow-band" id="workflow" aria-labelledby="workflow-heading">
+        <div class="section-heading compact">
+          <span class="badge-pill">How it works</span>
+          <h2 id="workflow-heading">숫자와 서류를 행동 목록으로 바꿉니다.</h2>
+        </div>
+        <div class="workflow-grid">
+          <article class="product-mockup-card">
+            <span class="step">01</span>
+            <h3>비용을 먼저 계산</h3>
+            <p>생활비와 입주 초기비용을 분리해서 첫 달에 필요한 현금을 대략 확인합니다.</p>
+          </article>
+          <article class="product-mockup-card">
+            <span class="step">02</span>
+            <h3>서류를 붙여넣기</h3>
+            <p>일본어 원문이나 OCR 결과를 넣고, 위험 표현과 질문용 프롬프트를 만듭니다.</p>
+          </article>
+          <article class="product-mockup-card">
+            <span class="step">03</span>
+            <h3>남은 일을 복사</h3>
+            <p>주소 등록, 보험, 은행, 휴대폰처럼 놓치기 쉬운 절차를 체크리스트로 관리합니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section content-band" id="content" aria-labelledby="content-heading">
+        <div class="section-heading">
+          <span class="badge-pill">Use cases</span>
+          <h2 id="content-heading">이런 상황에서 먼저 확인하세요.</h2>
+          <p>정확한 법률 판단은 전문가에게 확인해야 하지만, 계약 전 질문과 비용 감각은 미리 잡을 수 있습니다.</p>
+        </div>
+        <div class="seed-grid">
+          <article class="seed-card">
+            <span>01</span>
+            <h3>일본 집 계약 전</h3>
+            <p>시키킹, 레이킹, 보증회사, 중개수수료를 예시로 분해합니다.</p>
+          </article>
+          <article class="seed-card">
+            <span>02</span>
+            <h3>첫 달 예산 잡기</h3>
+            <p>월세와 고정비 중심으로 첫 달 예산을 빠르게 잡습니다.</p>
+          </article>
+          <article class="seed-card">
+            <span>03</span>
+            <h3>계약서 표현 확인</h3>
+            <p>解約, 違約金, 更新料, 原状回復 같은 단어를 행동 질문으로 바꿉니다.</p>
+          </article>
+          <article class="seed-card">
+            <span>04</span>
+            <h3>입국 직후 체크</h3>
+            <p>입국 직후 월급 전까지 버틸 자금과 임시숙소 비용을 정리합니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="cta-band-light" id="privacy">
+        <h2>이미지는 브라우저에서만 미리보기합니다.</h2>
+        <p>현재 버전은 업로드한 이미지나 붙여넣은 일본어 문서를 서버로 전송하지 않습니다. OCR 또는 AI 검토를 사용할 때는 사용자가 직접 프롬프트를 복사해 원하는 도구에 붙여넣습니다.</p>
+        <a class="button-primary" href="#tools">도구 다시 보기</a>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div>
+          <a class="brand on-dark" href="#top">
+            <span class="brand-mark">J</span>
+            <span>J-Life Kit</span>
+          </a>
+          <p data-i18n="disclaimer">계산과 서류 체크는 참고용입니다. 법률, 세무, 비자 판단은 공식기관 또는 전문가에게 확인하세요.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#tools">Tools</a>
+          <a href="#workflow">How it works</a>
+          <a href="#content">Use cases</a>
+          <a href="#privacy">Privacy</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
