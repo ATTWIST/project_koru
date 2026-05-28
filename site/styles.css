@@ -250,6 +250,41 @@ p {
   font-size: 18px;
 }
 
+.hero-page-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 560px;
+  margin-bottom: 22px;
+}
+
+.hero-page-card {
+  display: grid;
+  gap: 5px;
+  min-height: 78px;
+  padding: 15px;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  background: var(--surface-soft);
+}
+
+.hero-page-card:hover {
+  border-color: var(--primary);
+  background: var(--canvas);
+}
+
+.hero-page-card span {
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.hero-page-card small {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -1271,6 +1306,7 @@ textarea:focus {
   }
 
   .hero-proof,
+  .hero-page-grid,
   .feature-grid,
   .workflow-grid,
   .seed-grid,
