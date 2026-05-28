@@ -1,0 +1,14 @@
+# J-Life Kit
+
+J-Life Kit is a browser-based set of tools for non-Japanese residents preparing for life in Japan.
+
+Main site:
+https://attwist.github.io/project_koru/
+
+Useful pages:
+- Japan move-in cost calculator: https://attwist.github.io/project_koru/move-in-cost.html
+- Japan living cost calculator: https://attwist.github.io/project_koru/living-cost.html
+- Japanese contract terms check: https://attwist.github.io/project_koru/contract-check.html
+- Japan moving checklist: https://attwist.github.io/project_koru/moving-checklist.html
+
+The app estimates costs and creates checklists or review prompts. It does not provide legal, tax, visa, or financial advice.

@@ -1098,6 +1098,36 @@ textarea:focus {
   margin-top: 28px;
 }
 
+.share-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.share-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  color: var(--body);
+  background: var(--canvas);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.share-button:hover {
+  color: var(--ink);
+  border-color: var(--primary);
+}
+
+.share-button[type="button"] {
+  cursor: pointer;
+}
+
 .seo-stat-panel,
 .seo-panel {
   border: 1px solid var(--hairline);
@@ -1305,6 +1335,11 @@ textarea:focus {
 
   .seo-page .lang-switch {
     justify-content: center;
+    width: 100%;
+  }
+
+  .share-strip,
+  .share-button {
     width: 100%;
   }
 

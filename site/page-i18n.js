@@ -6,6 +6,10 @@ const sharedCopy = {
     navChecklist: "체크리스트",
     footerText: "일본 생활비, 초기비용, 계약서 표현, 이주 체크리스트를 한곳에서 정리합니다.",
     footerHome: "홈",
+    copyShare: "공유문 복사",
+    copiedShare: "복사됨",
+    shareOnX: "X에 공유",
+    shareOnReddit: "Reddit에 공유",
   },
   ja: {
     navMovein: "初期費用",
@@ -14,6 +18,10 @@ const sharedCopy = {
     navChecklist: "チェックリスト",
     footerText: "日本の生活費、初期費用、契約書表現、移住チェックリストを一か所で整理します。",
     footerHome: "ホーム",
+    copyShare: "共有文をコピー",
+    copiedShare: "コピー済み",
+    shareOnX: "Xで共有",
+    shareOnReddit: "Redditで共有",
   },
   en: {
     navMovein: "Move-in cost",
@@ -22,6 +30,10 @@ const sharedCopy = {
     navChecklist: "Checklist",
     footerText: "Estimate Japan living costs, move-in costs, contract terms, and arrival tasks in one place.",
     footerHome: "Home",
+    copyShare: "Copy post",
+    copiedShare: "Copied",
+    shareOnX: "Share on X",
+    shareOnReddit: "Share on Reddit",
   },
 };
 
@@ -385,6 +397,40 @@ function setPageLang(lang) {
   } catch {
     // Language still changes on the current page when storage is blocked.
   }
+
+  updateShareControls(copy, lang);
+}
+
+function buildUtmUrl(source) {
+  const canonical = document.querySelector('link[rel="canonical"]')?.href || window.location.href.split("?")[0];
+  const url = new URL(canonical);
+  url.searchParams.set("utm_source", source);
+  url.searchParams.set("utm_medium", source === "copy" ? "share_text" : "social_share");
+  url.searchParams.set("utm_campaign", "first_test");
+  return url.toString();
+}
+
+function buildShareText(copy) {
+  return `${copy.heading}\n\n${copy.lead}\n\n${buildUtmUrl("copy")}`;
+}
+
+function updateShareControls(copy, lang) {
+  const xUrl = buildUtmUrl("x");
+  const redditUrl = buildUtmUrl("reddit");
+  const xText = `${copy.heading}\n\n${copy.lead}`;
+
+  document.querySelectorAll("[data-share-x]").forEach((link) => {
+    link.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(xText)}&url=${encodeURIComponent(xUrl)}`;
+  });
+
+  document.querySelectorAll("[data-share-reddit]").forEach((link) => {
+    link.href = `https://www.reddit.com/submit?url=${encodeURIComponent(redditUrl)}&title=${encodeURIComponent(copy.heading)}`;
+  });
+
+  document.querySelectorAll("[data-share-copy]").forEach((button) => {
+    button.dataset.shareText = buildShareText(copy);
+    button.dataset.copiedLabel = sharedCopy[lang].copiedShare;
+  });
 }
 
 document.querySelectorAll("[data-page-lang]").forEach((button) => {
@@ -393,6 +439,37 @@ document.querySelectorAll("[data-page-lang]").forEach((button) => {
     if (typeof window.gtag === "function") {
       window.gtag("event", "page_language_switch", {
         language: button.dataset.pageLang,
+        page: document.body.dataset.page,
+      });
+    }
+  });
+});
+
+document.querySelectorAll("[data-share-copy]").forEach((button) => {
+  button.addEventListener("click", async () => {
+    const original = button.textContent;
+    const text = button.dataset.shareText || window.location.href;
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+
+    button.textContent = button.dataset.copiedLabel || "Copied";
+    window.setTimeout(() => {
+      button.textContent = original;
+    }, 900);
+
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "share_copy", {
         page: document.body.dataset.page,
       });
     }

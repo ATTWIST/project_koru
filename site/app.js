@@ -150,6 +150,7 @@ const i18n = {
     foundTerms: "발견된 표현",
     reviewPrompt: "복사용 프롬프트",
     copyPrompt: "프롬프트 복사",
+    shareLine: "같이 확인해보기:",
     disclaimer: "계산과 서류 체크는 참고용입니다. 법률, 세무, 비자 판단은 공식기관 또는 전문가에게 확인하세요.",
     noTerms: "위험 표현 없음",
     remainingTitle: "남은 체크리스트",
@@ -275,6 +276,7 @@ const i18n = {
     foundTerms: "見つかった表現",
     reviewPrompt: "コピー用プロンプト",
     copyPrompt: "プロンプトをコピー",
+    shareLine: "同じツールで確認:",
     disclaimer: "計算と書類チェックは参考用です。法律、税務、在留資格の判断は公的機関または専門家に確認してください。",
     noTerms: "注意表現なし",
     remainingTitle: "残りのチェックリスト",
@@ -400,6 +402,7 @@ const i18n = {
     foundTerms: "Found Terms",
     reviewPrompt: "Prompt",
     copyPrompt: "Copy Prompt",
+    shareLine: "Try the tool:",
     disclaimer: "Calculations and document checks are for reference only. Confirm legal, tax, and visa matters with official sources or professionals.",
     noTerms: "No flagged terms",
     remainingTitle: "Remaining Checklist",
@@ -515,6 +518,14 @@ function numberValue(form, name, max = Number.MAX_SAFE_INTEGER) {
 
 function formatYen(value) {
   return yen.format(Math.round(value));
+}
+
+function viralLink(page) {
+  return `https://attwist.github.io/project_koru/${page}?utm_source=result_copy&utm_medium=tool&utm_campaign=viral_loop`;
+}
+
+function withViralLink(text, page) {
+  return `${text}\n\n${i18n[currentLang].shareLine}\n${viralLink(page)}`;
 }
 
 function setWarning(id, messages) {
@@ -747,7 +758,7 @@ document.querySelector("#copy-living").addEventListener("click", (event) => {
     `${i18n[currentLang].yearlyTotal}: ${document.querySelector("#living-yearly").textContent}`,
     `${i18n[currentLang].reserve}: ${document.querySelector("#living-reserve").textContent}`,
   ].join("\n");
-  copyText(text, event.currentTarget);
+  copyText(withViralLink(text, "living-cost.html"), event.currentTarget);
   trackEvent("living_copy");
 });
 
@@ -756,17 +767,17 @@ document.querySelector("#copy-movein").addEventListener("click", (event) => {
     .map((row) => `${row.querySelector("span").textContent}: ${row.querySelector("strong").textContent}`)
     .join("\n");
   const text = `${i18n[currentLang].upfront}: ${document.querySelector("#movein-total").textContent}\n${rows}`;
-  copyText(text, event.currentTarget);
+  copyText(withViralLink(text, "move-in-cost.html"), event.currentTarget);
   trackEvent("movein_copy");
 });
 
 document.querySelector("#copy-checklist").addEventListener("click", (event) => {
-  copyText(`${i18n[currentLang].remainingTitle}\n${getRemainingChecklist()}`, event.currentTarget);
+  copyText(withViralLink(`${i18n[currentLang].remainingTitle}\n${getRemainingChecklist()}`, "moving-checklist.html"), event.currentTarget);
   trackEvent("checklist_copy");
 });
 
 document.querySelector("#copy-prompt").addEventListener("click", (event) => {
-  copyText(document.querySelector("#prompt-output").value, event.currentTarget);
+  copyText(withViralLink(document.querySelector("#prompt-output").value, "contract-check.html"), event.currentTarget);
   trackEvent("document_prompt_copy");
 });
 
