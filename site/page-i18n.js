@@ -355,7 +355,12 @@ const pageCopy = {
 };
 
 function getPageLang() {
-  const saved = localStorage.getItem("jlife-lang");
+  let saved = "ko";
+  try {
+    saved = localStorage.getItem("jlife-lang") || "ko";
+  } catch {
+    saved = "ko";
+  }
   return ["ko", "ja", "en"].includes(saved) ? saved : "ko";
 }
 
@@ -375,7 +380,11 @@ function setPageLang(lang) {
     button.classList.toggle("active", button.dataset.pageLang === lang);
   });
 
-  localStorage.setItem("jlife-lang", lang);
+  try {
+    localStorage.setItem("jlife-lang", lang);
+  } catch {
+    // Language still changes on the current page when storage is blocked.
+  }
 }
 
 document.querySelectorAll("[data-page-lang]").forEach((button) => {
