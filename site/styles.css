@@ -160,6 +160,10 @@ p {
   gap: 10px;
 }
 
+.seo-page .nav-actions {
+  min-width: max-content;
+}
+
 .lang-switch,
 .nav-pill-group {
   display: flex;
@@ -1288,6 +1292,19 @@ textarea:focus {
 
   .seo-page .nav-cta {
     display: inline-flex;
+    width: 100%;
+  }
+
+  .seo-page .nav-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .seo-page .lang-switch {
+    justify-content: center;
     width: 100%;
   }
 

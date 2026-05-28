@@ -472,7 +472,8 @@ const riskTerms = [
   { term: "特約", label: "특약", level: "high" },
 ];
 
-let currentLang = "ko";
+const savedLang = localStorage.getItem("jlife-lang");
+let currentLang = ["ko", "ja", "en"].includes(savedLang) ? savedLang : "ko";
 let documentImageName = "";
 
 function trackEvent(name, params = {}) {
@@ -532,6 +533,9 @@ function updateI18n() {
   document.querySelectorAll("[data-i18n]").forEach((node) => {
     const key = node.dataset.i18n;
     if (i18n[currentLang][key]) node.textContent = i18n[currentLang][key];
+  });
+  document.querySelectorAll(".lang-button").forEach((button) => {
+    button.classList.toggle("active", button.dataset.lang === currentLang);
   });
   renderChecklist();
   calculateLiving();
@@ -724,8 +728,7 @@ document.querySelectorAll(".tab").forEach((tab) => {
 document.querySelectorAll(".lang-button").forEach((button) => {
   button.addEventListener("click", () => {
     currentLang = button.dataset.lang;
-    document.querySelectorAll(".lang-button").forEach((node) => node.classList.remove("active"));
-    button.classList.add("active");
+    localStorage.setItem("jlife-lang", currentLang);
     updateI18n();
     trackEvent("language_switch");
   });
