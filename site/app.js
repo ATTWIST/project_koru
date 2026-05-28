@@ -639,12 +639,19 @@ async function copyText(text, button) {
   }, 900);
 }
 
+function selectTool(tabName, shouldTrack = false) {
+  const validTools = ["living", "movein", "checklist", "document"];
+  if (!validTools.includes(tabName)) return;
+
+  document.querySelectorAll(".tab").forEach((node) => node.classList.toggle("active", node.dataset.tab === tabName));
+  document.querySelectorAll(".tool-panel").forEach((node) => node.classList.toggle("active", node.id === tabName));
+
+  if (shouldTrack) trackEvent("tool_tab_open", { tool: tabName });
+}
+
 document.querySelectorAll(".tab").forEach((tab) => {
   tab.addEventListener("click", () => {
-    document.querySelectorAll(".tab").forEach((node) => node.classList.remove("active"));
-    document.querySelectorAll(".tool-panel").forEach((node) => node.classList.remove("active"));
-    tab.classList.add("active");
-    document.querySelector(`#${tab.dataset.tab}`).classList.add("active");
+    selectTool(tab.dataset.tab, true);
   });
 });
 
@@ -695,3 +702,6 @@ document.querySelector("#copy-prompt").addEventListener("click", (event) => {
 });
 
 updateI18n();
+
+const initialTool = new URLSearchParams(window.location.search).get("tool");
+selectTool(initialTool);

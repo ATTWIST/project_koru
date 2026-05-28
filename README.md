@@ -17,6 +17,14 @@ The deployable static site is in:
 site/
 ```
 
+Public URLs:
+
+- https://attwist.github.io/project_koru/
+- https://attwist.github.io/project_koru/move-in-cost.html
+- https://attwist.github.io/project_koru/living-cost.html
+- https://attwist.github.io/project_koru/contract-check.html
+- https://attwist.github.io/project_koru/moving-checklist.html
+
 GitHub Pages is configured through:
 
 ```text

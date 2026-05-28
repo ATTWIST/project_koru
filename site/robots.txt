@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://attwist.github.io/project_koru/sitemap.xml
